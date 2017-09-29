@@ -10,16 +10,18 @@ public class Remedio implements Serializable {
 
     private Integer id, miligramas;
     private String descricao, nome;
+    private ETipo tipo;
 
     public Remedio() {
 
     }
 
-    public Remedio(Integer id, Integer miligramas, String descricao, String nome) {
+    public Remedio(Integer id, Integer miligramas, String descricao, String nome, ETipo tipo) {
         this.id = id;
         this.miligramas = miligramas;
         this.descricao = descricao;
         this.nome = nome;
+        this.tipo = tipo;
     }
 
     public Integer getId() {
@@ -52,5 +54,13 @@ public class Remedio implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public ETipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(ETipo tipo) {
+        this.tipo = tipo;
     }
 }
