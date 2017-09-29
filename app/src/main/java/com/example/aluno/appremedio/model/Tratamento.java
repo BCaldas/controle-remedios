@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class Tratamento implements Serializable {
 
-    private Integer id, diasTratamento;
+    private Integer id, periodoDias, periodoHoras;
     private Usuario usuario;
     private Remedio remedio;
     private String dosagem;
@@ -16,9 +16,10 @@ public class Tratamento implements Serializable {
     public Tratamento() {
     }
 
-    public Tratamento(Integer id, Integer diasTratamento, Usuario usuario, Remedio remedio, String dosagem) {
+    public Tratamento(Integer id, Integer periodoDias, Usuario usuario, Remedio remedio, String dosagem, Integer periodoHoras) {
         this.id = id;
-        this.diasTratamento = diasTratamento;
+        this.periodoDias = periodoDias;
+        this.periodoHoras = periodoHoras;
         this.usuario = usuario;
         this.remedio = remedio;
         this.dosagem = dosagem;
@@ -32,12 +33,20 @@ public class Tratamento implements Serializable {
         this.id = id;
     }
 
-    public Integer getDiasTratamento() {
-        return diasTratamento;
+    public Integer getPeriodoDias() {
+        return periodoDias;
     }
 
-    public void setDiasTratamento(Integer diasTratamento) {
-        this.diasTratamento = diasTratamento;
+    public void setPeriodoDias(Integer periodoDias) {
+        this.periodoDias = periodoDias;
+    }
+
+    public Integer getPeriodoHoras() {
+        return periodoHoras;
+    }
+
+    public void setPeriodoHoras(Integer periodoHoras) {
+        this.periodoHoras = periodoHoras;
     }
 
     public Usuario getUsuario() {
