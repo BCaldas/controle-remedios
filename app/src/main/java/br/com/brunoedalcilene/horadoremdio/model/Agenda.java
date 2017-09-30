@@ -1,4 +1,4 @@
-package com.example.aluno.appremedio.model;
+package br.com.brunoedalcilene.horadoremdio.model;
 
 import java.io.Serializable;
 import java.util.Date;

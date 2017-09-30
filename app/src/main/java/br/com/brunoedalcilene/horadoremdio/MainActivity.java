@@ -1,4 +1,4 @@
-package com.example.aluno.appremedio;
+package br.com.brunoedalcilene.horadoremdio;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

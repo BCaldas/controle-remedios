@@ -1,4 +1,4 @@
-package com.example.aluno.appremedio;
+package br.com.brunoedalcilene.horadoremdio;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
