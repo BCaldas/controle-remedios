@@ -26,14 +26,14 @@ public class Database extends SQLiteOpenHelper {
     public static final String REMEDIO_NOME = "nome_remedio";
 
     //Tabela Usuário
-    public static final String TABELA_USUARIO = "usuario";
-    public static final String USUARIO_ID = "id_usuario";
-    public static final String USUARIO_NOME = "nome_usuario";
+    public static final String TABELA_PACIENTE = "paciente";
+    public static final String PACIENTE_ID = "id_paciente";
+    public static final String PACIENTE_NOME = "nome_paciente";
 
     //Tabela Tratamento
     public static final String TABELA_TRATAMENTO = "tratamento";
     public static final String TRATAMENTO_ID = "id_tratamento";
-    public static final String TRATAMENTO_USUARIO = "id_usuario";
+    public static final String TRATAMENTO_PACIENTE = "id_paciente";
     public static final String TRATAMENTO_REMEDIO ="id_remedio";
     public static final String TRATAMENTO_DIAS = "periodo_dias";
     public static final String TRATAMENTO_HORAS = "periodo_horas";
@@ -52,19 +52,19 @@ public class Database extends SQLiteOpenHelper {
             " " + REMEDIO_NOME + " text NOT NULL," +
             " " + REMEDIO_DESC + " text)";
 
-    private static final String CREATE_TABLE_USUARIO = "CREATE TABLE " + TABELA_USUARIO + "("+
-            " " + USUARIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            " " + USUARIO_NOME + " text NOT NULL)";
+    private static final String CREATE_TABLE_PACIENTE = "CREATE TABLE " + TABELA_PACIENTE + "("+
+            " " + PACIENTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+            " " + PACIENTE_NOME + " text NOT NULL)";
 
     private static final String CREATE_TABLE_TRATAMENTO = "CREATE TABLE " + TABELA_TRATAMENTO + "("+
             " " + TRATAMENTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            " " + TRATAMENTO_USUARIO + " INTEGER NOT NULL," +
+            " " + TRATAMENTO_PACIENTE + " INTEGER NOT NULL," +
             " " + TRATAMENTO_REMEDIO + " INTEGER NOT NULL," +
             " " + TRATAMENTO_DIAS + " INTEGER NOT NULL," +
             " " + TRATAMENTO_HORAS + " INTEGER NOT NULL," +
             " " + TRATAMENTO_DOSAGEM + " REAL," +
             " " + TRATAMENTO_TIPO_DOSAGEM + " text NOT NULL," +
-            " FOREIGN KEY("+ TRATAMENTO_USUARIO + ")" + " REFERENCES " + TABELA_USUARIO + "(" + USUARIO_ID + ")" +
+            " FOREIGN KEY("+ TRATAMENTO_PACIENTE + ")" + " REFERENCES " + TABELA_PACIENTE + "(" + PACIENTE_ID + ")" +
             " FOREIGN KEY("+ TRATAMENTO_REMEDIO + ")" + " REFERENCES " + TABELA_REMEDIO + "(" + REMEDIO_ID + ")" +
             ")";
 
@@ -78,7 +78,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE_REMEDIO);
-        sqLiteDatabase.execSQL(CREATE_TABLE_USUARIO);
+        sqLiteDatabase.execSQL(CREATE_TABLE_PACIENTE);
         sqLiteDatabase.execSQL(CREATE_TABLE_TRATAMENTO);
         sqLiteDatabase.execSQL(CREATE_TABLE_AGENDA);
     }
@@ -87,10 +87,9 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE "
                 +TABELA_REMEDIO+
-                ","+TABELA_USUARIO+
+                ","+ TABELA_PACIENTE +
                 ","+TABELA_TRATAMENTO+
                 ","+TABELA_AGENDA);
         onCreate(sqLiteDatabase);
-
     }
 }

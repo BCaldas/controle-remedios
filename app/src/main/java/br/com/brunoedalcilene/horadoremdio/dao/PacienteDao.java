@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.brunoedalcilene.horadoremdio.database.Database;
 import br.com.brunoedalcilene.horadoremdio.model.Remedio;
 
@@ -14,9 +16,9 @@ import br.com.brunoedalcilene.horadoremdio.model.Remedio;
  * Created by bruno on 30/09/2017.
  */
 
-public class RemedioDao extends BaseDao {
+public class PacienteDao extends BaseDao {
 
-    public RemedioDao(Context context) {
+    public PacienteDao(Context context) {
         super(context);
     }
 

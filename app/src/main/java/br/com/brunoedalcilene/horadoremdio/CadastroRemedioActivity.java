@@ -41,7 +41,7 @@ public class CadastroRemedioActivity extends AppCompatActivity {
 
         if (remedio != null) {
             getSupportActionBar().setTitle(remedio.getNome());
-
+            nome.setText(remedio.getNome());
             descricao.setText(remedio.getDescricao());
             util.bloquearElementos(findViewById(android.R.id.content),false);
 
