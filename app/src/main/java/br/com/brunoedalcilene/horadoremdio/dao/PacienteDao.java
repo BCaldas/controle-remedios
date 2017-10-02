@@ -4,13 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.brunoedalcilene.horadoremdio.database.Database;
-import br.com.brunoedalcilene.horadoremdio.model.Remedio;
+import br.com.brunoedalcilene.horadoremdio.model.Paciente;
 
 /**
  * Created by bruno on 30/09/2017.
@@ -22,14 +21,13 @@ public class PacienteDao extends BaseDao {
         super(context);
     }
 
-    public void inserir(Remedio remedio){
+    public void inserir(Paciente paciente){
         open();
         try {
             ContentValues cv = new ContentValues();
-            cv.put(Database.REMEDIO_NOME, remedio.getNome());
-            cv.put(Database.REMEDIO_DESC, remedio.getDescricao());
+            cv.put(Database.PACIENTE_NOME, paciente.getNome());
 
-            c.insert(Database.TABELA_REMEDIO,null,cv);
+            c.insert(Database.TABELA_PACIENTE,null,cv);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -38,23 +36,22 @@ public class PacienteDao extends BaseDao {
             close();
         }
     }
-    public List<Remedio> obterTodos(){
+    public List<Paciente> obterTodos(){
         open();
         try {
-            String sql = "select * from "+Database.TABELA_REMEDIO;
+            String sql = "select * from "+Database.TABELA_PACIENTE;
             Cursor cur = c.rawQuery(sql,null);
 
-            List<Remedio> remedios = new ArrayList<>();
+            List<Paciente> pacientes = new ArrayList<>();
 
             while(cur.moveToNext()){
-                Remedio r = new Remedio();
-                r.setId( cur.getInt( cur.getColumnIndex(Database.REMEDIO_ID ) ) );
-                r.setNome( cur.getString( cur.getColumnIndex(Database.REMEDIO_NOME ) ) );
-                r.setDescricao( cur.getString( cur.getColumnIndex(Database.REMEDIO_DESC ) ) );
+                Paciente p = new Paciente();
+                p.setId( cur.getInt( cur.getColumnIndex(Database.PACIENTE_ID ) ) );
+                p.setNome( cur.getString( cur.getColumnIndex(Database.PACIENTE_NOME ) ) );
 
-                remedios.add(r);
+                pacientes.add(p);
             }
-            return remedios;
+            return pacientes;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,10 +60,10 @@ public class PacienteDao extends BaseDao {
             close();
         }
     }
-    public List<Remedio> obterPorNome(String nome){
+    public List<Paciente> obterPorNome(String nome){
         return null;
     }
-    public Remedio obterPorId(int id){
+    public Paciente obterPorId(int id){
         return null;
     }
 }

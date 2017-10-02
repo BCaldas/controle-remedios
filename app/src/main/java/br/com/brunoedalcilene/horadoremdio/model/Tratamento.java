@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Tratamento implements Serializable {
 
     private Integer id, periodoDias, periodoHoras;
-    private Usuario usuario;
+    private Paciente paciente;
     private Remedio remedio;
     private Double dosagem;
     private ETipoDosagem tipoDosagem;
@@ -17,11 +17,11 @@ public class Tratamento implements Serializable {
     public Tratamento() {
     }
 
-    public Tratamento(Integer id, Integer periodoDias, Usuario usuario, Remedio remedio, Double dosagem, Integer periodoHoras, ETipoDosagem tipoDosagem) {
+    public Tratamento(Integer id, Integer periodoDias, Paciente paciente, Remedio remedio, Double dosagem, Integer periodoHoras, ETipoDosagem tipoDosagem) {
         this.id = id;
         this.periodoDias = periodoDias;
         this.periodoHoras = periodoHoras;
-        this.usuario = usuario;
+        this.paciente = paciente;
         this.remedio = remedio;
         this.dosagem = dosagem;
         this.tipoDosagem = tipoDosagem;
@@ -51,12 +51,12 @@ public class Tratamento implements Serializable {
         this.periodoHoras = periodoHoras;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     public Remedio getRemedio() {

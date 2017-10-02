@@ -6,17 +6,17 @@ import java.io.Serializable;
  * Created by bruno on 28/09/2017.
  */
 
-public class Usuario implements Serializable {
+public class Paciente implements Serializable {
 
     private Integer id;
     private String nome;
 
-    public Usuario(Integer id, String nome) {
+    public Paciente(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }
 
-    public Usuario() {
+    public Paciente() {
     }
 
     public Integer getId() {

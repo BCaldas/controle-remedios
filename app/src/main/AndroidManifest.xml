@@ -23,9 +23,18 @@
             android:name=".RemediosActivity"
             android:label="@string/title_activity_remedios"
             android:theme="@style/AppTheme" />
-        <activity android:name=".CadastroRemedioActivity"
+        <activity
+            android:name=".CadastroRemedioActivity"
             android:label="@string/title_activity_cadastro_remedios"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".PacientesActivity"
+            android:label="@string/title_activity_pacientes"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".CadastroPacienteActivity"
+            android:label="@string/title_activity_cadastro_paciente"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

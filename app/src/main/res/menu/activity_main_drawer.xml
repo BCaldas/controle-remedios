@@ -15,9 +15,9 @@
             android:icon="@drawable/pote_remedios"
             android:title="Remédios" />
         <item
-            android:id="@+id/nav_usuarios"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Usuários" />
+            android:id="@+id/nav_pacientes"
+            android:icon="@drawable/paciente"
+            android:title="Pacientes" />
     </group>
 
     <item android:title="Communicate">

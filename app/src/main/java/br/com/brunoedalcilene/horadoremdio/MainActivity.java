@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
     private MainActivity activity;
     private ActivityUtil util;
     private static int REMEDIOS = 1;
-    private static int USUARIOS = 2;
+    private static int PACIENTES = 2;
     private static int TRATAMENTOS = 3;
     private static int AGENDA = 4;
 
@@ -101,7 +101,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_remedios) {
             util.chamarActivity(RemediosActivity.class,REMEDIOS,null,null);
 
-        } else if (id == R.id.nav_usuarios) {
+        } else if (id == R.id.nav_pacientes) {
+            util.chamarActivity(PacientesActivity.class,PACIENTES,null,null);
 
         } else if (id == R.id.nav_share) {
 

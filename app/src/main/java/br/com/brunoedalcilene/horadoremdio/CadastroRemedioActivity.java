@@ -87,7 +87,7 @@ public class CadastroRemedioActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
         switch (item.getItemId()) {
-            case android.R.id.home:  //ID do seu botão (gerado automaticamente pelo android, usando como está, deve funcionar
+            case android.R.id.home:
                 finish();
                 break;
             default:break;
