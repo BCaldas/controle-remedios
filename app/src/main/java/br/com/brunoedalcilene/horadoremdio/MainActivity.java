@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private MainActivity activity;
+    private ActivityUtil util;
     private static int REMEDIOS = 1;
     private static int USUARIOS = 2;
     private static int TRATAMENTOS = 3;
@@ -98,9 +99,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_tratamentos) {
 
         } else if (id == R.id.nav_remedios) {
-
-           new ActivityUtil(getApplicationContext(), activity)
-                   .chamarActivity(RemediosActivity.class,REMEDIOS,null,null);
+            util.chamarActivity(RemediosActivity.class,REMEDIOS,null,null);
 
         } else if (id == R.id.nav_usuarios) {
 
@@ -117,5 +116,6 @@ public class MainActivity extends AppCompatActivity
 
     private void binding() {
         activity = (MainActivity) this;
+        util = new ActivityUtil(getApplicationContext(),this);
     }
 }

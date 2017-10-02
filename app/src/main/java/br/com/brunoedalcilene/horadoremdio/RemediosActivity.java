@@ -28,6 +28,7 @@ public class RemediosActivity extends AppCompatActivity {
     List<Remedio> remedios;
     FloatingActionButton fab;
     RemediosActivity activity;
+    ActivityUtil util;
 
     private static int CADASTRO_REMEDIOS = 1;
 
@@ -47,25 +48,16 @@ public class RemediosActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ActivityUtil(getApplicationContext(), activity).chamarActivity(CadastroRemedioActivity.class,CADASTRO_REMEDIOS,null,null);
+                util.chamarActivity(CadastroRemedioActivity.class,CADASTRO_REMEDIOS,null,null);
             }
         });
 
         lstRemedios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                new ActivityUtil(getApplicationContext(), activity).chamarActivity(CadastroRemedioActivity.class,CADASTRO_REMEDIOS,"remedio",remedios.get(i));
+                util.chamarActivity(CadastroRemedioActivity.class,CADASTRO_REMEDIOS,"remedio",remedios.get(i));
             }
         });
-    }
-
-    public void chamarTela(Class activity, int requestCode, String extra, Serializable objeto) {
-
-        Intent i = new Intent(getApplicationContext(), activity);
-        if (extra != null && objeto != null) {
-            i.putExtra(extra,objeto);
-        }
-        startActivityForResult(i, requestCode);
     }
 
     private void binding() {
@@ -73,6 +65,7 @@ public class RemediosActivity extends AppCompatActivity {
         lstRemedios = (ListView) findViewById(R.id.lstRemedios);
         fab = (FloatingActionButton) findViewById(R.id.btnNovoRemedio);
         activity = (RemediosActivity) this;
+        util = new ActivityUtil(getApplicationContext(), activity);
     }
 
     private void preencherListView(String nome) {

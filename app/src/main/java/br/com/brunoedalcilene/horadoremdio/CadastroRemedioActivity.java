@@ -1,46 +1,52 @@
 package br.com.brunoedalcilene.horadoremdio;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.brunoedalcilene.horadoremdio.dao.RemedioDao;
 import br.com.brunoedalcilene.horadoremdio.model.Remedio;
+import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
 
 public class CadastroRemedioActivity extends AppCompatActivity {
 
     Button btnSalvar, btnLimpar;
     EditText nome, descricao;
     Remedio remedio;
-    TextView lblNovoRemedio;
-
+    ActivityUtil util;
+    View content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_remedio);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         binding();
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         remedio = (Remedio) getIntent().getSerializableExtra("remedio");
 
         if (remedio != null) {
-            nome.setText(remedio.getNome());
-            descricao.setText(remedio.getDescricao());
+            getSupportActionBar().setTitle(remedio.getNome());
 
-            View view = findViewById(android.R.id.content);
-            bloquearElementos(view,false);
-            lblNovoRemedio.setText(remedio.getNome());
+            descricao.setText(remedio.getDescricao());
+            util.bloquearElementos(findViewById(android.R.id.content),false);
+
         } else {
 
-//            btnSalvar.setEnabled(false);
             btnSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -75,35 +81,17 @@ public class CadastroRemedioActivity extends AppCompatActivity {
         btnLimpar = (Button) findViewById(R.id.btnRemedioLimpar);
         nome = (EditText) findViewById(R.id.txtRemedioNome);
         descricao = (EditText) findViewById(R.id.txtRemedioDescricao);
-        lblNovoRemedio = (TextView) findViewById(R.id.lblTituloCadastroRemedio);
+        content = (View) findViewById(android.R.id.content);
+        util = new ActivityUtil(getApplicationContext(), this);
     }
 
-    private void chamarTela(Class activity, int requestCode) {
-
-        Intent i = new Intent(getApplicationContext(), activity);
-        startActivityForResult(i, requestCode);
-    }
-
-    private void bloquearElementos(View root, boolean enabled) {
-        // Desabilito a própria View
-        root.setEnabled(enabled);
-
-        // Se ele for um ViewGroup, isso é, comporta outras Views.
-        if(root instanceof ViewGroup) {
-            ViewGroup group = (ViewGroup) root;
-
-            // Percorro os filhos e desabilito de forma recursiva
-            for(int i = 0; i < group.getChildCount(); ++i) {
-                bloquearElementos(group.getChildAt(i), enabled);
-            }
+    public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
+        switch (item.getItemId()) {
+            case android.R.id.home:  //ID do seu botão (gerado automaticamente pelo android, usando como está, deve funcionar
+                finish();
+                break;
+            default:break;
         }
-    }
-
-    private boolean validarCampos() {
-        if (nome.getText().toString().isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return true;
     }
 }

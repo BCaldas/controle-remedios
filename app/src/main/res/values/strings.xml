@@ -7,4 +7,5 @@
 
     <string name="action_settings">Configurações</string>
     <string name="title_activity_remedios">Remédios</string>
+    <string name="title_activity_cadastro_remedios">Novo Remédio</string>
 </resources>

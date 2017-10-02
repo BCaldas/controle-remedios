@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.io.Serializable;
 
@@ -28,5 +30,20 @@ public class ActivityUtil {
             i.putExtra(extra,objeto);
         }
         fa.startActivityForResult(i, requestCode);
+    }
+
+    public void bloquearElementos(View root, boolean enabled) {
+        // Desabilito a própria View
+        root.setEnabled(enabled);
+
+        // Se ele for um ViewGroup, isso é, comporta outras Views.
+        if(root instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) root;
+
+            // Percorro os filhos e desabilito de forma recursiva
+            for(int i = 0; i < group.getChildCount(); ++i) {
+                bloquearElementos(group.getChildAt(i), enabled);
+            }
+        }
     }
 }
