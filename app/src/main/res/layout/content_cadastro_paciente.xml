@@ -8,4 +8,49 @@
     tools:context="br.com.brunoedalcilene.horadoremdio.CadastroPacienteActivity"
     tools:showIn="@layout/activity_cadastro_paciente">
 
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txtPacienteNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome"
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="358dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPacienteSalvar"
+                style="@android:style/Widget.Material.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="16.20"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:text="Salvar" />
+
+            <Button
+                android:id="@+id/btnPacienteLimpar"
+                style="@android:style/Widget.Material.Button.Colored"
+                android:layout_width="177dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.32"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:elevation="0dp"
+                android:text="Limpar" />
+
+        </LinearLayout>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

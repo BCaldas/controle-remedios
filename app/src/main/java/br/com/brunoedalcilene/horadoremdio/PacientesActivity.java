@@ -22,6 +22,7 @@ import br.com.brunoedalcilene.horadoremdio.dao.PacienteDao;
 import br.com.brunoedalcilene.horadoremdio.dao.RemedioDao;
 import br.com.brunoedalcilene.horadoremdio.model.Paciente;
 import br.com.brunoedalcilene.horadoremdio.model.Remedio;
+import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
 
 public class PacientesActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class PacientesActivity extends AppCompatActivity {
     PacientesActivity activity;
     Toolbar toolbar;
     List<Paciente> pacientes;
+    ActivityUtil util;
     private static int CADASTRO_PACIENTES = 1;
 
     @Override
@@ -47,15 +49,14 @@ public class PacientesActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                util.chamarActivity(CadastroPacienteActivity.class,CADASTRO_PACIENTES,null,null);
             }
         });
 
         lstPacientes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                
+                util.chamarActivity(CadastroPacienteActivity.class,CADASTRO_PACIENTES,"paciente",pacientes.get(i));
             }
         });
     }
@@ -64,6 +65,7 @@ public class PacientesActivity extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         lstPacientes = (ListView) findViewById(R.id.lstPacientes);
         activity = (PacientesActivity) this;
+        util = new ActivityUtil(getApplicationContext(), activity);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
