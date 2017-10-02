@@ -8,20 +8,17 @@ import java.io.Serializable;
 
 public class Remedio implements Serializable {
 
-    private Integer id, miligramas;
+    private Integer id;
     private String descricao, nome;
-    private ETipo tipo;
 
     public Remedio() {
 
     }
 
-    public Remedio(Integer id, Integer miligramas, String descricao, String nome, ETipo tipo) {
+    public Remedio(Integer id, String descricao, String nome) {
         this.id = id;
-        this.miligramas = miligramas;
         this.descricao = descricao;
         this.nome = nome;
-        this.tipo = tipo;
     }
 
     public Integer getId() {
@@ -30,14 +27,6 @@ public class Remedio implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getMiligramas() {
-        return miligramas;
-    }
-
-    public void setMiligramas(Integer miligramas) {
-        this.miligramas = miligramas;
     }
 
     public String getDescricao() {
@@ -54,13 +43,5 @@ public class Remedio implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public ETipo getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(ETipo tipo) {
-        this.tipo = tipo;
     }
 }

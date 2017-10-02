@@ -3,11 +3,11 @@ package br.com.brunoedalcilene.horadoremdio.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.brunoedalcilene.horadoremdio.database.Database;
-import br.com.brunoedalcilene.horadoremdio.model.ETipo;
 import br.com.brunoedalcilene.horadoremdio.model.Remedio;
 
 /**
@@ -40,11 +40,13 @@ public class RemedioDao {
             ContentValues cv = new ContentValues();
             cv.put(Database.REMEDIO_NOME, remedio.getNome());
             cv.put(Database.REMEDIO_DESC, remedio.getDescricao());
-            cv.put(Database.REMEDIO_TIPO, remedio.getTipo().toString());
-            cv.put(Database.REMEDIO_UNIDADE, remedio.getMiligramas());
 
             c.insert(Database.TABELA_REMEDIO,null,cv);
-        }finally {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        finally {
             close();
         }
     }
@@ -61,10 +63,7 @@ public class RemedioDao {
                 r.setId( cur.getInt( cur.getColumnIndex(Database.REMEDIO_ID ) ) );
                 r.setNome( cur.getString( cur.getColumnIndex(Database.REMEDIO_NOME ) ) );
                 r.setDescricao( cur.getString( cur.getColumnIndex(Database.REMEDIO_DESC ) ) );
-                r.setMiligramas( cur.getInt( cur.getColumnIndex(Database.REMEDIO_UNIDADE ) ) );
-                r.setTipo(
-                        ETipo.valueOf(cur.getString(
-                                cur.getColumnIndex(Database.REMEDIO_TIPO ) ) ) );
+
                 remedios.add(r);
             }
             return remedios;

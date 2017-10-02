@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class Database extends SQLiteOpenHelper {
 
     public static final String dbName = "remedios.db";
-    public static final int dbVersion = 2;
+    public static final int dbVersion = 1;
     Context context;
 
     public Database(Context context) {
@@ -24,9 +24,6 @@ public class Database extends SQLiteOpenHelper {
     public static final String REMEDIO_ID = "id_remedio";
     public static final String REMEDIO_DESC = "descricao";
     public static final String REMEDIO_NOME = "nome_remedio";
-    public static final String REMEDIO_UNIDADE = "miligramas";
-    public static final String REMEDIO_TIPO = "tipo";
-
 
     //Tabela Usuário
     public static final String TABELA_USUARIO = "usuario";
@@ -41,6 +38,8 @@ public class Database extends SQLiteOpenHelper {
     public static final String TRATAMENTO_DIAS = "periodo_dias";
     public static final String TRATAMENTO_HORAS = "periodo_horas";
     public static final String TRATAMENTO_DOSAGEM = "dosagem";
+    public static final String TRATAMENTO_TIPO_DOSAGEM = "tipo_dosagem";
+
 
     //Tabela Agenda
     public static final String TABELA_AGENDA = "agenda";
@@ -50,14 +49,12 @@ public class Database extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_REMEDIO = "CREATE TABLE " + TABELA_REMEDIO + "("+
             " " + REMEDIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            " " + REMEDIO_NOME + " TEXT NOT NULL," +
-            " " + REMEDIO_DESC + " TEXT," +
-            " " + REMEDIO_TIPO + " TEXT NOT NULL," +
-            " " + REMEDIO_UNIDADE + " INTEGER)";
+            " " + REMEDIO_NOME + " text NOT NULL," +
+            " " + REMEDIO_DESC + " text)";
 
     private static final String CREATE_TABLE_USUARIO = "CREATE TABLE " + TABELA_USUARIO + "("+
             " " + USUARIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-            " " + USUARIO_NOME + " TEXT NOT NULL)";
+            " " + USUARIO_NOME + " text NOT NULL)";
 
     private static final String CREATE_TABLE_TRATAMENTO = "CREATE TABLE " + TABELA_TRATAMENTO + "("+
             " " + TRATAMENTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
@@ -65,7 +62,8 @@ public class Database extends SQLiteOpenHelper {
             " " + TRATAMENTO_REMEDIO + " INTEGER NOT NULL," +
             " " + TRATAMENTO_DIAS + " INTEGER NOT NULL," +
             " " + TRATAMENTO_HORAS + " INTEGER NOT NULL," +
-            " " + TRATAMENTO_DOSAGEM + " TEXT" +
+            " " + TRATAMENTO_DOSAGEM + " REAL," +
+            " " + TRATAMENTO_TIPO_DOSAGEM + " text NOT NULL," +
             " FOREIGN KEY("+ TRATAMENTO_USUARIO + ")" + " REFERENCES " + TABELA_USUARIO + "(" + USUARIO_ID + ")" +
             " FOREIGN KEY("+ TRATAMENTO_REMEDIO + ")" + " REFERENCES " + TABELA_REMEDIO + "(" + REMEDIO_ID + ")" +
             ")";
@@ -73,7 +71,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_AGENDA = "CREATE TABLE " + TABELA_AGENDA + "("+
             " " + AGENDA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             " " + AGENDA_TRATAMENTO + " INTEGER NOT NULL," +
-            " " + AGENDA_DATA_HORA + " TEXT, NOT NULL" +
+            " " + AGENDA_DATA_HORA + " text NOT NULL," +
             " FOREIGN KEY("+ AGENDA_TRATAMENTO + ")" + " REFERENCES " + TABELA_TRATAMENTO + "(" + TRATAMENTO_ID + ")" +
             ")";
 

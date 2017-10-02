@@ -1,5 +1,6 @@
 package br.com.brunoedalcilene.horadoremdio;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,11 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static int REMEDIOS = 1;
+    private static int USUARIOS = 2;
+    private static int TRATAMENTOS = 3;
+    private static int AGENDA = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +91,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_tratamentos) {
 
         } else if (id == R.id.nav_remedios) {
+           chamarTela(RemediosActivity.class, REMEDIOS);
 
         } else if (id == R.id.nav_usuarios) {
 
@@ -97,5 +104,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void chamarTela(Class activity, int requestCode) {
+
+        Intent i = new Intent(getApplicationContext(), activity);
+        startActivityForResult(i, requestCode);
     }
 }

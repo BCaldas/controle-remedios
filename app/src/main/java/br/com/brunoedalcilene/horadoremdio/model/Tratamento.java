@@ -11,18 +11,20 @@ public class Tratamento implements Serializable {
     private Integer id, periodoDias, periodoHoras;
     private Usuario usuario;
     private Remedio remedio;
-    private String dosagem;
+    private Double dosagem;
+    private ETipoDosagem tipoDosagem;
 
     public Tratamento() {
     }
 
-    public Tratamento(Integer id, Integer periodoDias, Usuario usuario, Remedio remedio, String dosagem, Integer periodoHoras) {
+    public Tratamento(Integer id, Integer periodoDias, Usuario usuario, Remedio remedio, Double dosagem, Integer periodoHoras, ETipoDosagem tipoDosagem) {
         this.id = id;
         this.periodoDias = periodoDias;
         this.periodoHoras = periodoHoras;
         this.usuario = usuario;
         this.remedio = remedio;
         this.dosagem = dosagem;
+        this.tipoDosagem = tipoDosagem;
     }
 
     public Integer getId() {
@@ -65,11 +67,19 @@ public class Tratamento implements Serializable {
         this.remedio = remedio;
     }
 
-    public String getDosagem() {
+    public Double getDosagem() {
         return dosagem;
     }
 
-    public void setDosagem(String dosagem) {
+    public void setDosagem(Double dosagem) {
         this.dosagem = dosagem;
+    }
+
+    public ETipoDosagem getTipoDosagem() {
+        return tipoDosagem;
+    }
+
+    public void setTipoDosagem(ETipoDosagem tipoDosagem) {
+        this.tipoDosagem = tipoDosagem;
     }
 }
