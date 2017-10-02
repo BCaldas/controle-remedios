@@ -13,11 +13,6 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".RemediosActivity"
@@ -36,8 +31,8 @@
             android:label="@string/title_activity_cadastro_paciente"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".PrincipalActivity"
-            android:label="@string/title_activity_principal">
+            android:name=".StartActivity"
+            android:label="@string/title_activity_start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

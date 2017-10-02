@@ -5,12 +5,12 @@ import android.os.Bundle;
 
 import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
 
-public class PrincipalActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.activity_start);
         new ActivityUtil(getApplicationContext(),this)
                 .chamarActivity(MainActivity.class,0,null,null);
     }
