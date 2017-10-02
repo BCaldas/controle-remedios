@@ -17,7 +17,8 @@
 
         <ListView
             android:id="@+id/lstRemedios"
-            android:layout_width="match_parent"
-            android:layout_height="442dp" />
+            android:layout_width="357dp"
+            android:layout_height="442dp"
+             />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
