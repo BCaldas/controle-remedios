@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,7 +40,9 @@ public class RemediosActivity extends AppCompatActivity {
 
         binding();
 
-//        preencheListView(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         preencherListView(null);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +90,7 @@ public class RemediosActivity extends AppCompatActivity {
             datum.put("descricao", r.getDescricao());
             data.add(datum);
         }
+
         SimpleAdapter adapter = new SimpleAdapter(this, data,
                 android.R.layout.simple_list_item_2,
                 new String[] {"nome", "descricao"},
@@ -103,6 +107,16 @@ public class RemediosActivity extends AppCompatActivity {
         if (requestCode == CADASTRO_REMEDIOS){
             preencherListView(null);
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
+        switch (item.getItemId()) {
+            case android.R.id.home:  //ID do seu botão (gerado automaticamente pelo android, usando como está, deve funcionar
+                finish();
+                break;
+            default:break;
+        }
+        return true;
     }
 
 }

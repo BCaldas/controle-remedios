@@ -1,6 +1,8 @@
 package br.com.brunoedalcilene.horadoremdio;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,9 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private MainActivity activity;
     private static int REMEDIOS = 1;
     private static int USUARIOS = 2;
     private static int TRATAMENTOS = 3;
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        binding();
     }
 
     @Override
@@ -91,7 +98,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_tratamentos) {
 
         } else if (id == R.id.nav_remedios) {
-           chamarTela(RemediosActivity.class, REMEDIOS);
+
+           new ActivityUtil(getApplicationContext(), activity)
+                   .chamarActivity(RemediosActivity.class,REMEDIOS,null,null);
 
         } else if (id == R.id.nav_usuarios) {
 
@@ -106,9 +115,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void chamarTela(Class activity, int requestCode) {
-
-        Intent i = new Intent(getApplicationContext(), activity);
-        startActivityForResult(i, requestCode);
+    private void binding() {
+        activity = (MainActivity) this;
     }
 }
