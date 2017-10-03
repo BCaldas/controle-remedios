@@ -25,7 +25,6 @@ public class RemediosActivity extends AppCompatActivity {
     ListView lstRemedios;
     List<Remedio> remedios;
     FloatingActionButton fab;
-    RemediosActivity activity;
     ActivityUtil util;
 
     private static int CADASTRO_REMEDIOS = 1;
@@ -62,8 +61,7 @@ public class RemediosActivity extends AppCompatActivity {
 
         lstRemedios = (ListView) findViewById(R.id.lstRemedios);
         fab = (FloatingActionButton) findViewById(R.id.btnNovoRemedio);
-        activity = (RemediosActivity) this;
-        util = new ActivityUtil(getApplicationContext(), activity);
+        util = new ActivityUtil(getApplicationContext(), this);
     }
 
     private void preencherListView(String nome) {

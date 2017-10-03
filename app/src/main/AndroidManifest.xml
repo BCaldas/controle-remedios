@@ -12,8 +12,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".RemediosActivity"
             android:label="@string/title_activity_remedios"
@@ -39,6 +38,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TratamentoActivity"
+            android:label="@string/title_activity_tratamento"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -11,4 +11,5 @@
     <string name="title_activity_pacientes">Pacientes</string>
     <string name="title_activity_cadastro_paciente">Novo Paciente</string>
     <string name="title_activity_start">Hora do Remédio</string>
+    <string name="title_activity_tratamento">Tratamentos</string>
 </resources>

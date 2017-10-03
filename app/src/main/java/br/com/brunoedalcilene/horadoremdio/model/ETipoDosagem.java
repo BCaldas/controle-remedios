@@ -6,7 +6,7 @@ package br.com.brunoedalcilene.horadoremdio.model;
 
 public enum ETipoDosagem {
 
-    Comprimido(1,"CP"),Mililitros(2,"ML");
+    Cp(1,"Comprimido"),Ml(2,"Mililitro");
 
     private final int value;
     private final String desc;

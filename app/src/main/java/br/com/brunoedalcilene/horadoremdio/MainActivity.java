@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_agenda) {
             // Handle the camera action
         } else if (id == R.id.nav_tratamentos) {
+            util.chamarActivity(TratamentoActivity.class,TRATAMENTOS,null,null);
 
         } else if (id == R.id.nav_remedios) {
             util.chamarActivity(RemediosActivity.class,REMEDIOS,null,null);
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
