@@ -8,9 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.SimpleAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import br.com.brunoedalcilene.horadoremdio.dao.TratamentoDao;
 import br.com.brunoedalcilene.horadoremdio.model.Tratamento;
 import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
 
@@ -29,6 +34,7 @@ public class TratamentoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         binding();
+//        preencherListView(null);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -58,5 +64,30 @@ public class TratamentoActivity extends AppCompatActivity {
             default:break;
         }
         return true;
+    }
+
+    private void preencherListView(String nome) {
+        if (nome == null) {
+            tratamentos = new TratamentoDao(getApplicationContext()).obterTodos();
+        }else{
+            tratamentos = new TratamentoDao(getApplicationContext()).obterPorNome(nome);
+        }
+
+        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+        for (Tratamento t : tratamentos) {
+
+            Map<String, String> datum = new HashMap<String, String>(2);
+            datum.put("paciente", t.getPaciente().getNome());
+            datum.put("remedio", t.getRemedio().getNome());
+            data.add(datum);
+        }
+
+        SimpleAdapter adapter = new SimpleAdapter(this, data,
+                android.R.layout.simple_list_item_2,
+                new String[] {"paciente", "remedio"},
+                new int[] {android.R.id.text1,
+                        android.R.id.text2});
+
+        lstTratamentos.setAdapter(adapter);
     }
 }

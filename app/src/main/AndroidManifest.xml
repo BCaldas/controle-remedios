@@ -12,7 +12,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RemediosActivity"
             android:label="@string/title_activity_remedios"
@@ -41,6 +41,10 @@
         <activity
             android:name=".TratamentoActivity"
             android:label="@string/title_activity_tratamento"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".CadastroTratamentoActivity"
+            android:label="@string/title_activity_cadastro_tratamento"
             android:theme="@style/AppTheme"></activity>
     </application>
 

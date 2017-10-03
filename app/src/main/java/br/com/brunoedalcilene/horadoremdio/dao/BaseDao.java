@@ -3,6 +3,8 @@ package br.com.brunoedalcilene.horadoremdio.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.List;
+
 import br.com.brunoedalcilene.horadoremdio.database.Database;
 
 /**

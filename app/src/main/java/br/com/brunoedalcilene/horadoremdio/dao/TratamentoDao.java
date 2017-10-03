@@ -19,7 +19,7 @@ import br.com.brunoedalcilene.horadoremdio.model.Tratamento;
  * Created by bruno on 30/09/2017.
  */
 
-public class TratamentoDao extends BaseDao {
+public class TratamentoDao extends BaseDao{
 
     public TratamentoDao(Context context) {
         super(context);
@@ -45,6 +45,7 @@ public class TratamentoDao extends BaseDao {
             close();
         }
     }
+
     public List<Tratamento> obterTodos(){
         open();
         try {
@@ -87,6 +88,7 @@ public class TratamentoDao extends BaseDao {
             close();
         }
     }
+
     public List<Tratamento> obterPorNome(String nome){
         return null;
     }
