@@ -43,8 +43,7 @@ public class TratamentoActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                util.chamarActivity(CadastroTratamentoActivity.class,CADASTRO_TRATAMENTOS,null,null);
             }
         });
     }
@@ -53,8 +52,6 @@ public class TratamentoActivity extends AppCompatActivity {
         lstTratamentos = (ExpandableListView) findViewById(R.id.lstTratamentos);
         util = new ActivityUtil(getApplicationContext(),this);
     }
-
-
 
     public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
         switch (item.getItemId()) {
