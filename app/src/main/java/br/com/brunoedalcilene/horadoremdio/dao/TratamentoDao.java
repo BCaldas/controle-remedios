@@ -34,7 +34,7 @@ public class TratamentoDao extends BaseDao{
             cv.put(Database.TRATAMENTO_DIAS, tratamento.getPeriodoDias());
             cv.put(Database.TRATAMENTO_HORAS, tratamento.getPeriodoHoras());
             cv.put(Database.TRATAMENTO_DOSAGEM, tratamento.getDosagem());
-            cv.put(Database.TRATAMENTO_TIPO_DOSAGEM, tratamento.getTipoDosagem().getDescricao());
+            cv.put(Database.TRATAMENTO_TIPO_DOSAGEM, tratamento.getTipoDosagem().toString());
 
             c.insert(Database.TABELA_TRATAMENTO,null,cv);
         } catch (SQLException e) {
