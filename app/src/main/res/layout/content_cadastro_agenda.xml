@@ -8,4 +8,89 @@
     tools:context="br.com.brunoedalcilene.horadoremdio.CadastroAgendaActivity"
     tools:showIn="@layout/activity_cadastro_agenda">
 
+    <LinearLayout
+        android:layout_width="361dp"
+        android:layout_height="493dp"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.07"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lblTratamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tratamento"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+            <Spinner
+                android:id="@+id/spnTratamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txtData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Data"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/txtHora"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Hora"
+                android:inputType="time" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/chkPronto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Já tomei!"
+            android:layout_weight="0.06" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnAgendaSalvar"
+                style="@android:style/Widget.Material.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:text="Salvar" />
+
+            <Button
+                android:id="@+id/btnAgendaLimpar"
+                style="@android:style/Widget.Material.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="Limpar" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
