@@ -13,12 +13,19 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.Period;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.brunoedalcilene.horadoremdio.dao.AgendaDao;
 import br.com.brunoedalcilene.horadoremdio.dao.PacienteDao;
 import br.com.brunoedalcilene.horadoremdio.dao.RemedioDao;
 import br.com.brunoedalcilene.horadoremdio.dao.TratamentoDao;
+import br.com.brunoedalcilene.horadoremdio.model.Agenda;
 import br.com.brunoedalcilene.horadoremdio.model.ETipoDosagem;
 import br.com.brunoedalcilene.horadoremdio.model.Paciente;
 import br.com.brunoedalcilene.horadoremdio.model.Remedio;
@@ -107,6 +114,8 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
                         new TratamentoDao(getApplicationContext())
                                 .inserir(tratamento);
                         Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+
+//                        cadastrarLembretes(tratamento);
                         finish();
                     }
                 }
@@ -209,5 +218,33 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
             default:break;
         }
         return true;
+    }
+
+    private void cadastrarLembretes(Tratamento t) {
+
+        LocalDateTime dataHoraFinal = LocalDateTime.now().plusDays(t.getPeriodoDias());
+        LocalDateTime dataHoraGerada = LocalDateTime.now();
+        Period periodo = new Period(LocalDateTime.now(),LocalDateTime.now().plusDays(t.getPeriodoDias()));
+
+        while (periodo.getDays() > 0) {
+//            SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
+//            sdfDate.applyPattern("dd/MM/yyyy");
+//            SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
+//            sdfTime.applyPattern("HH:mm");
+//
+//            data.setText(sdfDate.format(agenda.getDataHoraConsumo()));
+//            hora.setText(sdfTime.format(agenda.getDataHoraConsumo()));
+
+            Agenda agenda = new Agenda();
+            agenda.setPronto(Boolean.FALSE);
+            agenda.setTratamento(t);
+            agenda.setDataHoraConsumo(dataHoraGerada.toDate());
+                new AgendaDao(getApplicationContext())
+                        .inserir(agenda);
+
+            dataHoraGerada.plusHours(t.getPeriodoHoras());
+
+            periodo.minusDays(1);
+        }
     }
 }
