@@ -49,6 +49,10 @@
         <activity
             android:name=".CadastroAgendaActivity"
             android:label="@string/title_activity_cadastro_agenda"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".HistoricoActivity"
+            android:label="@string/title_activity_historico"
             android:theme="@style/AppTheme"></activity>
     </application>
 

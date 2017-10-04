@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     ListView lstAgenda;
     List<Agenda> lembretes;
+    private ShareActionProvider mShareActionProvider;
 
     private MainActivity activity;
     private ActivityUtil util;
@@ -85,6 +87,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+//        MenuItem item = menu.findItem(R.id.nav_share);
+//
+//        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+//
         return true;
     }
 
@@ -120,7 +126,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_pacientes) {
             util.chamarActivity(PacientesActivity.class,PACIENTES,null,null);
 
+        } else if (id == R.id.nav_historico){
+            util.chamarActivity(HistoricoActivity.class,0,null,null);
+            
         } else if (id == R.id.nav_share) {
+
 
         } else if (id == R.id.nav_send) {
 

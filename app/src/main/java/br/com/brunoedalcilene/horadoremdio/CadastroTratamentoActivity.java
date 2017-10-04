@@ -1,5 +1,6 @@
 package br.com.brunoedalcilene.horadoremdio;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,6 +27,7 @@ import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
 
 public class CadastroTratamentoActivity extends AppCompatActivity {
 
+    Button share;
     Spinner spnPaciente, spnRemedio, spnTipoDosagem;
     EditText dosagem, horas, dias;
     Button btnSalvar, btnLimpar;
@@ -59,36 +62,53 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
             dias.setText(tratamento.getPeriodoDias().toString());
 
             util.bloquearElementos(findViewById(android.R.id.content),false);
+            share.setEnabled(true);
+
+            share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String send = "Paciente: "+tratamento.getPaciente().getNome() +
+                            " - Remédio: " +tratamento.getRemedio().getNome() +
+                            " - Período Dias: " + tratamento.getPeriodoDias().toString() +
+                            " - Intervalo de Horas: " + tratamento.getPeriodoHoras();
+
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, send);
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                }
+            });
 
         } else {
             preencheSpinnerPaciente();
             preencheSpinnerRemedio();
             preencherSpinnerTipoDosagem();
+            share.setVisibility(View.INVISIBLE);
 
             btnSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                   if (dosagem.getText().toString().isEmpty() ||
-                           horas.getText().toString().isEmpty() ||
-                           dias.getText().toString().isEmpty())
-                   {
-                        Toast.makeText(getApplicationContext(),"Por favor, preencha todos os campos.",Toast.LENGTH_SHORT).show();
-                   } else {
+                    if (dosagem.getText().toString().isEmpty() ||
+                            horas.getText().toString().isEmpty() ||
+                            dias.getText().toString().isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Por favor, preencha todos os campos.", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                       tratamento = new Tratamento();
-                       tratamento.setPaciente(pacientes.get(spnPaciente.getSelectedItemPosition()));
-                       tratamento.setRemedio(remedios.get(spnRemedio.getSelectedItemPosition()));
-                       tratamento.setDosagem(Double.parseDouble(dosagem.getText().toString()));
-                       tratamento.setTipoDosagem(ETipoDosagem.valueOf(spnTipoDosagem.getSelectedItem().toString()));
-                       tratamento.setPeriodoHoras(Integer.parseInt(horas.getText().toString()));
-                       tratamento.setPeriodoDias(Integer.parseInt(dias.getText().toString()));
+                        tratamento = new Tratamento();
+                        tratamento.setPaciente(pacientes.get(spnPaciente.getSelectedItemPosition()));
+                        tratamento.setRemedio(remedios.get(spnRemedio.getSelectedItemPosition()));
+                        tratamento.setDosagem(Double.parseDouble(dosagem.getText().toString()));
+                        tratamento.setTipoDosagem(ETipoDosagem.valueOf(spnTipoDosagem.getSelectedItem().toString()));
+                        tratamento.setPeriodoHoras(Integer.parseInt(horas.getText().toString()));
+                        tratamento.setPeriodoDias(Integer.parseInt(dias.getText().toString()));
 
-                       new TratamentoDao(getApplicationContext())
-                               .inserir(tratamento);
-                       Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_LONG).show();
-                       finish();
-                   }
+                        new TratamentoDao(getApplicationContext())
+                                .inserir(tratamento);
+                        Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
                 }
             });
 
@@ -104,6 +124,7 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
     }
 
     private void binding() {
+        share = (Button) findViewById(R.id.btnShare);
         spnPaciente = (Spinner) findViewById(R.id.spnTratamentoPaciente);
         spnRemedio = (Spinner) findViewById(R.id.spnTratamentoRemedio);
         dosagem = (EditText) findViewById(R.id.txtTratamentoDosagem);

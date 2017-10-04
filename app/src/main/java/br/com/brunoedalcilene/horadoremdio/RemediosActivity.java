@@ -98,7 +98,7 @@ public class RemediosActivity extends AppCompatActivity {
         }
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

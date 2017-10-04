@@ -14,4 +14,5 @@
     <string name="title_activity_tratamento">Tratamentos</string>
     <string name="title_activity_cadastro_tratamento">Novo Tratamento</string>
     <string name="title_activity_cadastro_agenda">Nova Lembrete</string>
+    <string name="title_activity_historico">Histórico</string>
 </resources>
