@@ -13,4 +13,5 @@
     <string name="title_activity_start">Hora do Remédio</string>
     <string name="title_activity_tratamento">Tratamentos</string>
     <string name="title_activity_cadastro_tratamento">Novo Tratamento</string>
+    <string name="title_activity_cadastro_agenda">Nova Ocorrência</string>
 </resources>

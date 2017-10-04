@@ -45,6 +45,10 @@
         <activity
             android:name=".CadastroTratamentoActivity"
             android:label="@string/title_activity_cadastro_tratamento"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".CadastroAgendaActivity"
+            android:label="@string/title_activity_cadastro_agenda"
             android:theme="@style/AppTheme"></activity>
     </application>
 

@@ -49,6 +49,8 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
 
         if (tratamento != null) {
 
+            getSupportActionBar().setTitle(tratamento.getPaciente().getNome() +
+                    " - " + tratamento.getRemedio().getNome());
             selecionarPaciente(tratamento.getPaciente());
             selecionarRemedio(tratamento.getRemedio());
             dosagem.setText(tratamento.getDosagem().toString());
