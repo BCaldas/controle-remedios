@@ -29,8 +29,6 @@ public class CadastroRemedioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         binding();
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 

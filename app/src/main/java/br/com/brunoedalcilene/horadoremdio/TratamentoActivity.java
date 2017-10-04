@@ -1,13 +1,14 @@
 package br.com.brunoedalcilene.horadoremdio;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
 public class TratamentoActivity extends AppCompatActivity {
 
     List<Tratamento> tratamentos;
-    ExpandableListView lstTratamentos;
+    ListView lstTratamentos;
     ActivityUtil util;
     private static int CADASTRO_TRATAMENTOS = 1;
 
@@ -34,7 +35,7 @@ public class TratamentoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         binding();
-//        preencherListView(null);
+        preencherListView(null);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -46,10 +47,17 @@ public class TratamentoActivity extends AppCompatActivity {
                 util.chamarActivity(CadastroTratamentoActivity.class,CADASTRO_TRATAMENTOS,null,null);
             }
         });
+
+        lstTratamentos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                util.chamarActivity(CadastroTratamentoActivity.class,CADASTRO_TRATAMENTOS,"tratamento",tratamentos.get(i));
+            }
+        });
     }
 
     private void binding() {
-        lstTratamentos = (ExpandableListView) findViewById(R.id.lstTratamentos);
+        lstTratamentos = (ListView) findViewById(R.id.lstTratamentos);
         util = new ActivityUtil(getApplicationContext(),this);
     }
 
@@ -86,5 +94,14 @@ public class TratamentoActivity extends AppCompatActivity {
                         android.R.id.text2});
 
         lstTratamentos.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CADASTRO_TRATAMENTOS){
+            preencherListView(null);
+        }
     }
 }

@@ -42,51 +42,62 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         binding();
-        preencheSpinnerPaciente();
-        preencheSpinnerRemedio();
-        preencherSpinnerTipoDosagem();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         tratamento = (Tratamento) getIntent().getSerializableExtra("tratamento");
 
         if (tratamento != null) {
+
+            selecionarPaciente(tratamento.getPaciente());
+            selecionarRemedio(tratamento.getRemedio());
+            dosagem.setText(tratamento.getDosagem().toString());
+            spnTipoDosagem.setSelection(tratamento.getTipoDosagem()==ETipoDosagem.Comprimido?0:1);
+            horas.setText(tratamento.getPeriodoHoras().toString());
+            dias.setText(tratamento.getPeriodoDias().toString());
+
             util.bloquearElementos(findViewById(android.R.id.content),false);
 
         } else {
+            preencheSpinnerPaciente();
+            preencheSpinnerRemedio();
+            preencherSpinnerTipoDosagem();
 
             btnSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    tratamento = new Tratamento();
-                    tratamento.setPaciente(pacientes.get(spnPaciente.getSelectedItemPosition()));
-                    tratamento.setRemedio(remedios.get(spnRemedio.getSelectedItemPosition()));
-                    tratamento.setDosagem(Double.parseDouble(dosagem.getText().toString()));
-                    tratamento.setTipoDosagem(ETipoDosagem.valueOf(spnTipoDosagem.getSelectedItem().toString()));
-                    tratamento.setPeriodoHoras(Integer.parseInt(horas.getText().toString()));
-                    tratamento.setPeriodoDias(Integer.parseInt(dias.getText().toString()));
+                   if (dosagem.getText().toString().isEmpty() ||
+                           horas.getText().toString().isEmpty() ||
+                           dias.getText().toString().isEmpty())
+                   {
+                        Toast.makeText(getApplicationContext(),"Por favor, preencha todos os campos.",Toast.LENGTH_SHORT).show();
+                   } else {
 
-                    new TratamentoDao(getApplicationContext())
-                            .inserir(tratamento);
-                    Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_LONG).show();
-                    finish();
+                       tratamento = new Tratamento();
+                       tratamento.setPaciente(pacientes.get(spnPaciente.getSelectedItemPosition()));
+                       tratamento.setRemedio(remedios.get(spnRemedio.getSelectedItemPosition()));
+                       tratamento.setDosagem(Double.parseDouble(dosagem.getText().toString()));
+                       tratamento.setTipoDosagem(ETipoDosagem.valueOf(spnTipoDosagem.getSelectedItem().toString()));
+                       tratamento.setPeriodoHoras(Integer.parseInt(horas.getText().toString()));
+                       tratamento.setPeriodoDias(Integer.parseInt(dias.getText().toString()));
 
-//                    if (nome.getText().toString().isEmpty()) {
-//                        Toast.makeText(getApplicationContext(),"O campo Nome é obrigatório.",Toast.LENGTH_SHORT).show();
-//                    } else {
-//
-//                    }
+                       new TratamentoDao(getApplicationContext())
+                               .inserir(tratamento);
+                       Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                       finish();
+                   }
                 }
             });
 
-//            btnLimpar.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    nome.setText("");
-//                    descricao.setText("");
-//                }
-//            });
+            btnLimpar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dosagem.setText("");
+                    horas.setText("");
+                    dias.setText("");
+                }
+            });
         }
     }
 
@@ -117,6 +128,17 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
         spnPaciente.setAdapter(dataAdapter);
     }
 
+    private void selecionarPaciente(Paciente p) {
+
+        List<String> list = new ArrayList<>();
+        list.add(p.getNome());
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnPaciente.setAdapter(dataAdapter);
+    }
+
     private void preencheSpinnerRemedio() {
         remedios = new RemedioDao(getApplicationContext()).obterTodos();
 
@@ -125,6 +147,18 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
         for(Remedio r: remedios){
             list.add(r.getNome());
         }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnRemedio.setAdapter(dataAdapter);
+    }
+
+    private void selecionarRemedio(Remedio r) {
+
+        List<String> list = new ArrayList<>();
+
+        list.add(r.getNome());
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
@@ -144,7 +178,7 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
         spnTipoDosagem.setAdapter(dataAdapter);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
