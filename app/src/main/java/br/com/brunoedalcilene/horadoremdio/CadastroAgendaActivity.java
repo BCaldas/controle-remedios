@@ -100,14 +100,20 @@ public class CadastroAgendaActivity extends AppCompatActivity {
                         try {
                             agenda.setDataHoraConsumo(sdf.parse(data.getText().toString() + " " + hora.getText().toString()));
                         } catch (ParseException e) {
-                            Logger.getLogger(CadastroAgendaActivity.class.getName()).log(Level.SEVERE, null, e);
+                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                         agenda.setPronto(Boolean.FALSE);
 
-                        new AgendaDao(getApplicationContext())
-                                .inserir(agenda);
-                        Toast.makeText(getApplicationContext(), "Lembrete Cadastrado com sucesso", Toast.LENGTH_LONG).show();
-                        finish();
+                        try {
+                            new AgendaDao(getApplicationContext())
+                                    .inserir(agenda);
+                            Toast.makeText(getApplicationContext(), "Lembrete Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                            finish();
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(),Toast.LENGTH_SHORT);
+                        }
+
+
                     }
                 }
             });

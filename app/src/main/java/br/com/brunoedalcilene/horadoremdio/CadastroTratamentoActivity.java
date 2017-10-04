@@ -1,6 +1,7 @@
 package br.com.brunoedalcilene.horadoremdio;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -93,7 +94,7 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
             preencherSpinnerTipoDosagem();
             share.setVisibility(View.INVISIBLE);
 
-            btnSalvar.setOnClickListener(new View.OnClickListener() {
+            btnSalvar.setOnClickListener(new View.OnClickListener()  {
                 @Override
                 public void onClick(View view) {
 
@@ -111,8 +112,13 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
                         tratamento.setPeriodoHoras(Integer.parseInt(horas.getText().toString()));
                         tratamento.setPeriodoDias(Integer.parseInt(dias.getText().toString()));
 
-                        new TratamentoDao(getApplicationContext())
-                                .inserir(tratamento);
+                        try {
+                            new TratamentoDao(getApplicationContext())
+                                    .inserir(tratamento);
+                        }catch (SQLiteException e) {
+                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                        } 
+
                         Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
 
 //                        cadastrarLembretes(tratamento);

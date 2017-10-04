@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteException;
 import android.provider.ContactsContract;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class TratamentoDao extends BaseDao{
         super(context);
     }
 
-    public void inserir(Tratamento tratamento){
+    public void inserir(Tratamento tratamento) throws SQLException{
         open();
         try {
             ContentValues cv = new ContentValues();
@@ -37,8 +39,8 @@ public class TratamentoDao extends BaseDao{
             cv.put(Database.TRATAMENTO_TIPO_DOSAGEM, tratamento.getTipoDosagem().toString());
 
             tratamento.setId((int)c.insert(Database.TABELA_TRATAMENTO,null,cv));
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLiteException e) {
+            throw new SQLiteException(e.getMessage());
         }
 
         finally {
