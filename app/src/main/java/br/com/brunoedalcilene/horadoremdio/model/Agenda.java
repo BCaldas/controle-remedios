@@ -12,11 +12,13 @@ public class Agenda implements Serializable {
     private Integer id;
     private Tratamento tratamento;
     private Date dataHoraConsumo;
+    private Boolean check;
 
-    public Agenda(Integer id, Tratamento tratamento, Date dataHoraConsumo) {
+    public Agenda(Integer id, Tratamento tratamento, Date dataHoraConsumo, Boolean check) {
         this.id = id;
         this.tratamento = tratamento;
         this.dataHoraConsumo = dataHoraConsumo;
+        this.check = check;
     }
 
     public Agenda() {
@@ -45,5 +47,13 @@ public class Agenda implements Serializable {
 
     public void setDataHoraConsumo(Date dataHoraConsumo) {
         this.dataHoraConsumo = dataHoraConsumo;
+    }
+
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
     }
 }
