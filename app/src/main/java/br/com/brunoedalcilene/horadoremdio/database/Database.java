@@ -46,7 +46,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String AGENDA_ID = "id_agenda";
     public static final String AGENDA_TRATAMENTO = "id_tratamento";
     public static final String AGENDA_DATA_HORA = "data_hora";
-    public static final String AGENDA_CHECK = "pronto";
+    public static final String AGENDA_PRONTO = "pronto";
 
     private static final String CREATE_TABLE_REMEDIO = "CREATE TABLE " + TABELA_REMEDIO + "("+
             " " + REMEDIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
@@ -73,7 +73,7 @@ public class Database extends SQLiteOpenHelper {
             " " + AGENDA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             " " + AGENDA_TRATAMENTO + " INTEGER NOT NULL," +
             " " + AGENDA_DATA_HORA + " text NOT NULL," +
-            " " + AGENDA_CHECK + " INTEGER NOT NULL," +
+            " " + AGENDA_PRONTO + " INTEGER NOT NULL DEFAULT 0," +
             " FOREIGN KEY("+ AGENDA_TRATAMENTO + ")" + " REFERENCES " + TABELA_TRATAMENTO + "(" + TRATAMENTO_ID + ")" +
             ")";
 

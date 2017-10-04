@@ -35,7 +35,7 @@ public class AgendaDao extends BaseDao {
             ContentValues cv = new ContentValues();
             cv.put(Database.AGENDA_TRATAMENTO, agenda.getTratamento().getId());
             cv.put(Database.AGENDA_DATA_HORA, sdf.format(agenda.getDataHoraConsumo()));
-            cv.put(Database.AGENDA_CHECK, agenda.getPronto());
+            cv.put(Database.AGENDA_PRONTO, agenda.getPronto());
 
             c.insert(Database.TABELA_AGENDA,null,cv);
         } catch (SQLException e) {
@@ -87,7 +87,7 @@ public class AgendaDao extends BaseDao {
 
                     a.setId(cur.getInt(cur.getColumnIndex(Database.AGENDA_ID)));
                     a.setDataHoraConsumo(sdf.parse(cur.getString(cur.getColumnIndex(Database.AGENDA_DATA_HORA))));
-                    a.setPronto((cur.getInt(cur.getColumnIndex(Database.AGENDA_CHECK)))==1?Boolean.TRUE:Boolean.FALSE);
+                    a.setPronto((cur.getInt(cur.getColumnIndex(Database.AGENDA_PRONTO)))==1?Boolean.TRUE:Boolean.FALSE);
                     a.setTratamento(t);
 
                 agendas.add(a);
