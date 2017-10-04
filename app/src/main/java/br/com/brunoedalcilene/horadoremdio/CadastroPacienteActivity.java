@@ -56,7 +56,7 @@ public class CadastroPacienteActivity extends AppCompatActivity {
 
                         new PacienteDao(getApplicationContext())
                                 .inserir(paciente);
-                        Toast.makeText(getApplicationContext(), "Paciente Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Paciente Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

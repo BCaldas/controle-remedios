@@ -106,7 +106,7 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
 
                         new TratamentoDao(getApplicationContext())
                                 .inserir(tratamento);
-                        Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

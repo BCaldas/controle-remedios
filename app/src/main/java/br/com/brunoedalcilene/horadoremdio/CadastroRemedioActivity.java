@@ -55,7 +55,7 @@ public class CadastroRemedioActivity extends AppCompatActivity {
 
                         new RemedioDao(getApplicationContext())
                                 .inserir(remedio);
-                        Toast.makeText(getApplicationContext(), "Remédio Cadastrado com sucesso", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Remédio Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }

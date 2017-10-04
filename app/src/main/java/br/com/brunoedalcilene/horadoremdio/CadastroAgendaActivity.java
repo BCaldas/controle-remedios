@@ -76,7 +76,7 @@ public class CadastroAgendaActivity extends AppCompatActivity {
 
                     new AgendaDao(getApplicationContext())
                             .alterar(agenda);
-                    Toast.makeText(getApplicationContext(), "Lembrete atualizado com sucesso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Lembrete atualizado com sucesso", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             });
