@@ -92,9 +92,47 @@ public class TratamentoDao extends BaseDao{
     }
 
     public List<Tratamento> obterPorNome(String nome){
-        return null;
-    }
-    public Tratamento obterPorId(int id){
-        return null;
+        open();
+        try {
+            String sql = "SELECT t.*, p.*, r.* FROM " + Database.TABELA_TRATAMENTO + " AS t" +
+                    " INNER JOIN " + Database.TABELA_PACIENTE +
+                    " AS p ON t."+Database.TRATAMENTO_PACIENTE+ " = p."+Database.PACIENTE_ID +
+                    " INNER JOIN " + Database.TABELA_REMEDIO +
+                    " AS r ON t."+Database.TRATAMENTO_REMEDIO+ " = r."+Database.REMEDIO_ID +
+                    " WHERE p."+Database.PACIENTE_NOME+ " LIKE '%"+nome+"%'" +
+                    " OR r." + Database.REMEDIO_NOME+" LIKE '%"+nome+"%'";
+
+            Cursor cur = c.rawQuery(sql,null);
+
+            List<Tratamento> tratamentos = new ArrayList<>();
+
+            while(cur.moveToNext()){
+                Tratamento t = new Tratamento();
+                t.setId( cur.getInt( cur.getColumnIndex(Database.TRATAMENTO_ID ) ) );
+                t.setPaciente(new Paciente(
+                        cur.getInt( cur.getColumnIndex(Database.PACIENTE_ID )),
+                        cur.getString(cur.getColumnIndex(Database.PACIENTE_NOME))
+                ));
+                t.setRemedio(new Remedio(
+                        cur.getInt(cur.getColumnIndex(Database.REMEDIO_ID)),
+                        cur.getString(cur.getColumnIndex(Database.REMEDIO_DESC)),
+                        cur.getString(cur.getColumnIndex(Database.REMEDIO_NOME))
+                ));
+                t.setDosagem(cur.getDouble(cur.getColumnIndex(Database.TRATAMENTO_DOSAGEM)));
+                t.setPeriodoDias(cur.getInt(cur.getColumnIndex(Database.TRATAMENTO_DIAS)));
+                t.setPeriodoHoras(cur.getInt(cur.getColumnIndex(Database.TRATAMENTO_HORAS)));
+                t.setTipoDosagem(ETipoDosagem.valueOf(
+                        cur.getString(cur.getColumnIndex(Database.TRATAMENTO_TIPO_DOSAGEM))));
+
+                tratamentos.add(t);
+            }
+            return tratamentos;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            close();
+        }
     }
 }

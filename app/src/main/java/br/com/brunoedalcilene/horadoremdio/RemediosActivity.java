@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -26,6 +29,8 @@ public class RemediosActivity extends AppCompatActivity {
     List<Remedio> remedios;
     FloatingActionButton fab;
     ActivityUtil util;
+    ImageButton pesquisar;
+    EditText txtPesquisa;
 
     private static int CADASTRO_REMEDIOS = 1;
 
@@ -55,6 +60,13 @@ public class RemediosActivity extends AppCompatActivity {
                 util.chamarActivity(CadastroRemedioActivity.class,CADASTRO_REMEDIOS,"remedio",remedios.get(i));
             }
         });
+
+        pesquisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preencherListView(txtPesquisa.getText().toString());
+            }
+        });
     }
 
     private void binding() {
@@ -62,6 +74,9 @@ public class RemediosActivity extends AppCompatActivity {
         lstRemedios = (ListView) findViewById(R.id.lstRemedios);
         fab = (FloatingActionButton) findViewById(R.id.btnNovoRemedio);
         util = new ActivityUtil(getApplicationContext(), this);
+        pesquisar = (ImageButton) findViewById(R.id.btnRemedioPesquisar);
+        txtPesquisa = (EditText) findViewById(R.id.txtRemedioBusca);
+
     }
 
     private void preencherListView(String nome) {
@@ -71,22 +86,25 @@ public class RemediosActivity extends AppCompatActivity {
             remedios = new RemedioDao(getApplicationContext()).obterPorNome(nome);
         }
 
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        for (Remedio r : remedios) {
+        if (remedios != null && !remedios.isEmpty()) {
 
-            Map<String, String> datum = new HashMap<String, String>(2);
-            datum.put("nome", r.getNome());
-            datum.put("descricao", r.getDescricao());
-            data.add(datum);
+            List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+            for (Remedio r : remedios) {
+
+                Map<String, String> datum = new HashMap<String, String>(2);
+                datum.put("nome", r.getNome());
+                datum.put("descricao", r.getDescricao());
+                data.add(datum);
+            }
+
+            SimpleAdapter adapter = new SimpleAdapter(this, data,
+                    android.R.layout.simple_list_item_2,
+                    new String[] {"nome", "descricao"},
+                    new int[] {android.R.id.text1,
+                            android.R.id.text2});
+
+            lstRemedios.setAdapter(adapter);
         }
-
-        SimpleAdapter adapter = new SimpleAdapter(this, data,
-                android.R.layout.simple_list_item_2,
-                new String[] {"nome", "descricao"},
-                new int[] {android.R.id.text1,
-                        android.R.id.text2});
-
-        lstRemedios.setAdapter(adapter);
     }
 
     @Override

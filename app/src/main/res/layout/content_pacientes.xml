@@ -9,37 +9,44 @@
     tools:showIn="@layout/activity_pacientes">
 
     <LinearLayout
-        android:layout_width="356dp"
-        android:layout_height="491dp"
+        android:layout_width="368dp"
+        android:layout_height="495dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="194dp"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/txtPacienteBusca"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nome" />
-        </android.support.design.widget.TextInputLayout>
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
+            android:layout_width="364dp"
+            android:layout_height="57dp"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="113dp"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="186dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.88">
+
+                <EditText
+                    android:id="@+id/txtPacienteBusca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nome" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/btnPacientePesquisar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/pesquisa" />
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/lstPacientes"
-            android:layout_width="357dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

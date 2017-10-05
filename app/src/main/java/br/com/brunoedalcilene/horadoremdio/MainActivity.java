@@ -15,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.SimpleAdapter;
@@ -37,7 +40,8 @@ public class MainActivity extends AppCompatActivity
 
     ListView lstAgenda;
     List<Agenda> lembretes;
-    private ShareActionProvider mShareActionProvider;
+    EditText txtPesquisa;
+    ImageButton pesquisar;
 
     private MainActivity activity;
     private ActivityUtil util;
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity
 
         binding();
 
-        preencherListView();
+        preencherListView(null);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +74,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 util.chamarActivity(CadastroAgendaActivity.class, CADASTRO_AGENDA,"agenda",lembretes.get(i));
+            }
+        });
+
+        pesquisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preencherListView(txtPesquisa.getText().toString());
             }
         });
 
@@ -87,10 +98,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-//        MenuItem item = menu.findItem(R.id.nav_share);
-//
-//        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-//
+
         return true;
     }
 
@@ -140,6 +148,8 @@ public class MainActivity extends AppCompatActivity
         activity = (MainActivity) this;
         util = new ActivityUtil(getApplicationContext(),this);
         lstAgenda = (ListView) findViewById(R.id.lstAgenda);
+        pesquisar = (ImageButton) findViewById(R.id.btnAgendaPesquisar);
+        txtPesquisa = (EditText) findViewById(R.id.txtAgendaBusca);
     }
 
     @Override
@@ -165,35 +175,37 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CADASTRO_AGENDA){
-            preencherListView();
-        }
+            preencherListView(null);
     }
 
-    private void preencherListView() {
+    private void preencherListView(String nome) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        sdf.applyPattern("dd/MM/yyyy - HH:mm");
-
-        lembretes = new AgendaDao(getApplicationContext()).obterPorStatus(false);
-
-
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        for (Agenda a : lembretes) {
-
-            Map<String, String> datum = new HashMap<String, String>(2);
-            datum.put("paciente", a.getTratamento().getPaciente().getNome());
-            datum.put("detalhes", a.getTratamento().getRemedio().getNome() + " - " + sdf.format(a.getDataHoraConsumo()));
-            data.add(datum);
+        if (nome == null) {
+            lembretes = new AgendaDao(getApplicationContext()).obterPorStatus(false);
+        } else {
+            lembretes = new AgendaDao(getApplicationContext()).obterPorNomeEStatus(nome,false);
         }
 
-        SimpleAdapter adapter = new SimpleAdapter(this, data,
-                android.R.layout.simple_list_item_2,
-                new String[] {"paciente", "detalhes"},
-                new int[] {android.R.id.text1,
-                        android.R.id.text2});
+        if (lembretes != null && !lembretes.isEmpty()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            sdf.applyPattern("dd/MM/yyyy - HH:mm");
 
-        lstAgenda.setAdapter(adapter);
+            List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+            for (Agenda a : lembretes) {
+
+                Map<String, String> datum = new HashMap<String, String>(2);
+                datum.put("paciente", a.getTratamento().getPaciente().getNome());
+                datum.put("detalhes", a.getTratamento().getRemedio().getNome() + " - " + sdf.format(a.getDataHoraConsumo()));
+                data.add(datum);
+            }
+
+            SimpleAdapter adapter = new SimpleAdapter(this, data,
+                    android.R.layout.simple_list_item_2,
+                    new String[] {"paciente", "detalhes"},
+                    new int[] {android.R.id.text1,
+                            android.R.id.text2});
+
+            lstAgenda.setAdapter(adapter);
+        }
     }
 }

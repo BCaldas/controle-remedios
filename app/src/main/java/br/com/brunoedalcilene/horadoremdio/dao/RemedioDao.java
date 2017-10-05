@@ -61,9 +61,31 @@ public class RemedioDao extends BaseDao {
         }
     }
     public List<Remedio> obterPorNome(String nome){
-        return null;
-    }
-    public Remedio obterPorId(int id){
-        return null;
+        open();
+        try {
+            String sql = "select * from "+Database.TABELA_REMEDIO +
+                    " WHERE "+Database.REMEDIO_NOME+ " LIKE '%"+nome+"%'" +
+                    " OR "+Database.REMEDIO_DESC+" LIKE '%"+nome+"%'";
+
+            Cursor cur = c.rawQuery(sql,null);
+
+            List<Remedio> remedios = new ArrayList<>();
+
+            while(cur.moveToNext()){
+                Remedio r = new Remedio();
+                r.setId( cur.getInt( cur.getColumnIndex(Database.REMEDIO_ID ) ) );
+                r.setNome( cur.getString( cur.getColumnIndex(Database.REMEDIO_NOME ) ) );
+                r.setDescricao( cur.getString( cur.getColumnIndex(Database.REMEDIO_DESC ) ) );
+
+                remedios.add(r);
+            }
+            return remedios;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            close();
+        }
     }
 }

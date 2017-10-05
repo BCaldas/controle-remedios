@@ -10,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -26,6 +29,8 @@ import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
 
 public class PacientesActivity extends AppCompatActivity {
 
+    EditText pacienteBusca;
+    ImageButton pesquisar;
     ListView lstPacientes;
     FloatingActionButton fab;
     PacientesActivity activity;
@@ -59,6 +64,13 @@ public class PacientesActivity extends AppCompatActivity {
                 util.chamarActivity(CadastroPacienteActivity.class,CADASTRO_PACIENTES,"paciente",pacientes.get(i));
             }
         });
+
+        pesquisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preencherListView(pacienteBusca.getText().toString());
+            }
+        });
     }
 
     private void binding() {
@@ -67,6 +79,8 @@ public class PacientesActivity extends AppCompatActivity {
         activity = (PacientesActivity) this;
         util = new ActivityUtil(getApplicationContext(), activity);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        pesquisar = (ImageButton) findViewById(R.id.btnPacientePesquisar);
+        pacienteBusca = (EditText) findViewById(R.id.txtPacienteBusca);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
@@ -87,13 +101,15 @@ public class PacientesActivity extends AppCompatActivity {
         }
 
         List<String> list = new ArrayList<>();
-        for(Paciente p: pacientes){
-            list.add(p.getNome());
+        if (pacientes != null && !pacientes.isEmpty()) {
+            for(Paciente p: pacientes){
+                list.add(p.getNome());
+            }
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+            lstPacientes.setAdapter(dataAdapter);
         }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-        lstPacientes.setAdapter(dataAdapter);
     }
 
     @Override

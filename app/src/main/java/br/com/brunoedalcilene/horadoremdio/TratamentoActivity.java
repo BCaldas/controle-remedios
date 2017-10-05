@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -25,7 +27,9 @@ public class TratamentoActivity extends AppCompatActivity {
     List<Tratamento> tratamentos;
     ListView lstTratamentos;
     ActivityUtil util;
-    private static int CADASTRO_TRATAMENTOS = 1;
+    ImageButton pesquisar;
+    EditText txtPesquisa;
+    private static int CADASTRO_TRATAMENTOS = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +58,20 @@ public class TratamentoActivity extends AppCompatActivity {
                 util.chamarActivity(CadastroTratamentoActivity.class,CADASTRO_TRATAMENTOS,"tratamento",tratamentos.get(i));
             }
         });
+
+        pesquisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preencherListView(txtPesquisa.getText().toString());
+            }
+        });
     }
 
     private void binding() {
         lstTratamentos = (ListView) findViewById(R.id.lstTratamentos);
         util = new ActivityUtil(getApplicationContext(),this);
+        pesquisar = (ImageButton) findViewById(R.id.btnTratamentoPesquisar);
+        txtPesquisa = (EditText) findViewById(R.id.txtTratamentoBusca);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
@@ -78,22 +91,24 @@ public class TratamentoActivity extends AppCompatActivity {
             tratamentos = new TratamentoDao(getApplicationContext()).obterPorNome(nome);
         }
 
-        List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-        for (Tratamento t : tratamentos) {
+        if (tratamentos != null && !tratamentos.isEmpty()) {
+            List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+            for (Tratamento t : tratamentos) {
 
-            Map<String, String> datum = new HashMap<String, String>(2);
-            datum.put("paciente", t.getPaciente().getNome());
-            datum.put("remedio", t.getRemedio().getNome());
-            data.add(datum);
+                Map<String, String> datum = new HashMap<String, String>(2);
+                datum.put("paciente", t.getPaciente().getNome());
+                datum.put("remedio", t.getRemedio().getNome());
+                data.add(datum);
+            }
+
+            SimpleAdapter adapter = new SimpleAdapter(this, data,
+                    android.R.layout.simple_list_item_2,
+                    new String[] {"paciente", "remedio"},
+                    new int[] {android.R.id.text1,
+                            android.R.id.text2});
+
+            lstTratamentos.setAdapter(adapter);
         }
-
-        SimpleAdapter adapter = new SimpleAdapter(this, data,
-                android.R.layout.simple_list_item_2,
-                new String[] {"paciente", "remedio"},
-                new int[] {android.R.id.text1,
-                        android.R.id.text2});
-
-        lstTratamentos.setAdapter(adapter);
     }
 
     @Override

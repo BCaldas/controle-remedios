@@ -61,9 +61,29 @@ public class PacienteDao extends BaseDao {
         }
     }
     public List<Paciente> obterPorNome(String nome){
-        return null;
-    }
-    public Paciente obterPorId(int id){
-        return null;
+        open();
+        try {
+            String sql = "select * from "+Database.TABELA_PACIENTE +
+                    " WHERE "+Database.PACIENTE_NOME+ " LIKE '%"+nome+"%'";
+
+            Cursor cur = c.rawQuery(sql,null);
+
+            List<Paciente> pacientes = new ArrayList<>();
+
+            while(cur.moveToNext()){
+                Paciente p = new Paciente();
+                p.setId( cur.getInt( cur.getColumnIndex(Database.PACIENTE_ID ) ) );
+                p.setNome( cur.getString( cur.getColumnIndex(Database.PACIENTE_NOME ) ) );
+
+                pacientes.add(p);
+            }
+            return pacientes;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            close();
+        }
     }
 }

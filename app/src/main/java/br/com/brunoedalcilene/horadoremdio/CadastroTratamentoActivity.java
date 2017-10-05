@@ -2,9 +2,11 @@ package br.com.brunoedalcilene.horadoremdio;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,9 +16,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -115,14 +121,14 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
                         try {
                             new TratamentoDao(getApplicationContext())
                                     .inserir(tratamento);
+
+                            cadastrarLembretes(tratamento);
+                            finish();
                         }catch (SQLiteException e) {
                             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
-                        } 
+                        }
 
                         Toast.makeText(getApplicationContext(), "Tratamento Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-
-//                        cadastrarLembretes(tratamento);
-                        finish();
                     }
                 }
             });
@@ -228,29 +234,29 @@ public class CadastroTratamentoActivity extends AppCompatActivity {
 
     private void cadastrarLembretes(Tratamento t) {
 
-        LocalDateTime dataHoraFinal = LocalDateTime.now().plusDays(t.getPeriodoDias());
-        LocalDateTime dataHoraGerada = LocalDateTime.now();
-        Period periodo = new Period(LocalDateTime.now(),LocalDateTime.now().plusDays(t.getPeriodoDias()));
+        DateTime dtFinal = DateTime.now().plusDays(t.getPeriodoDias());
+        DateTime dtInicial = DateTime.now();
 
-        while (periodo.getDays() > 0) {
-//            SimpleDateFormat sdfDate = new SimpleDateFormat("dd/MM/yyyy");
-//            sdfDate.applyPattern("dd/MM/yyyy");
-//            SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-//            sdfTime.applyPattern("HH:mm");
-//
-//            data.setText(sdfDate.format(agenda.getDataHoraConsumo()));
-//            hora.setText(sdfTime.format(agenda.getDataHoraConsumo()));
+        Duration dur = new Duration(dtInicial,dtFinal);
+
+        PeriodFormatter formatter = new PeriodFormatterBuilder()
+                .appendDays()
+                .appendHours()
+                .toFormatter();
+
+        int formatted = Integer.parseInt(formatter.print(dur.toPeriod()));
+
+        while (formatted > 0) {
 
             Agenda agenda = new Agenda();
             agenda.setPronto(Boolean.FALSE);
             agenda.setTratamento(t);
-            agenda.setDataHoraConsumo(dataHoraGerada.toDate());
-                new AgendaDao(getApplicationContext())
-                        .inserir(agenda);
+            agenda.setDataHoraConsumo(dtInicial.toDate());
+            new AgendaDao(getApplicationContext())
+                    .inserir(agenda);
 
-            dataHoraGerada.plusHours(t.getPeriodoHoras());
-
-            periodo.minusDays(1);
+            dtInicial = dtInicial.plusHours(t.getPeriodoHoras());
+            formatted -= t.getPeriodoHoras();
         }
     }
 }
