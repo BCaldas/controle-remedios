@@ -1,5 +1,6 @@
 package br.com.brunoedalcilene.horadoremdio;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +30,7 @@ import br.com.brunoedalcilene.horadoremdio.model.Agenda;
 import br.com.brunoedalcilene.horadoremdio.model.Tratamento;
 import br.com.brunoedalcilene.horadoremdio.util.ActivityUtil;
 
-public class CadastroAgendaActivity extends AppCompatActivity {
+public class CadastroAgendaActivity extends AppCompatActivity implements DatePickerFragment.DateDialogListener {
 
     Spinner spnTratamento;
     CheckBox pronto;
@@ -37,10 +41,13 @@ public class CadastroAgendaActivity extends AppCompatActivity {
     ActivityUtil util;
     Agenda agenda;
 
+    private static final String DIALOG_DATE = "CadastroAgendaActivity.DateDialog";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_agenda);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -66,14 +73,10 @@ public class CadastroAgendaActivity extends AppCompatActivity {
             data.setEnabled(false);
             hora.setEnabled(false);
             btnLimpar.setEnabled(false);
-
             btnSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     agenda.setPronto(pronto.isChecked());
-
-
-
                     new AgendaDao(getApplicationContext())
                             .alterar(agenda);
                     Toast.makeText(getApplicationContext(), "Lembrete atualizado com sucesso", Toast.LENGTH_SHORT).show();
@@ -82,6 +85,21 @@ public class CadastroAgendaActivity extends AppCompatActivity {
             });
 
         } else {
+
+            data.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    data.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            DatePickerFragment dialog = new DatePickerFragment();
+                            dialog.show(getSupportFragmentManager(), DIALOG_DATE);
+                        }
+                    });
+                }
+            });
+
             pronto.setVisibility(View.INVISIBLE);
             preencheSpinnerTratamento();
             btnSalvar.setOnClickListener(new View.OnClickListener() {
@@ -176,5 +194,9 @@ public class CadastroAgendaActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onFinishDialog(Date date) {
+
+    }
 }
 
