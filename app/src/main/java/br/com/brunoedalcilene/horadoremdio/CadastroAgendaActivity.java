@@ -140,10 +140,8 @@ public class CadastroAgendaActivity extends AppCompatActivity implements DatePic
             btnLimpar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     data.setText("");
                     hora.setText("");
-
                 }
             });
         }
